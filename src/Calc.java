@@ -346,10 +346,6 @@ import static java.lang.Boolean.TRUE;
 
     //Проверяем корректность записи римского числа (I - MMMCMXCIX)
     static boolean romanNumberIsValid(String romanNumber) throws Exception {
-        //M D C L X V I    CMDIX  IX    I II III IV V VI VII VIII IX X XI XII XIII XIV XV XVI XVII XVIII XIX XX
-        //6 5 4 3 2 1 0           02    0 00 000 01 1 10 100 1000 02 2 20 200 2000 201 21 210 2100 21000 202 22
-        //1 5 10 50 100 500 1000  4   9   40  90  400 900
-        //I V X  L  C   D   M     IV  IX  XL  XC  CD  CM
         String romanSeq = "IVXLCDM";
         int repeat = 0;
         boolean neg = FALSE; //признак уменьшения
