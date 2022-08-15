@@ -5,7 +5,7 @@ import static java.lang.Boolean.TRUE;
 
 class Main {
 
-    public static void main(String args[]) {
+    public static void main(String inputs[]) {
         for (; ; ) {
             Scanner in = new Scanner(System.in);
             System.out.println("Введите математическое выражение:");
@@ -14,7 +14,7 @@ class Main {
         }
     }
 
-    public static String calc(String input) {
+      static String calc(String input) {
         String output = "";
         boolean arabik;
         char operator;
