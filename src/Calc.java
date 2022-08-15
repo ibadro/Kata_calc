@@ -18,9 +18,7 @@ class Main {
         String output = "";
         boolean arabik;
         char operator;
-      //  int indexOperator;
-
-        //Убрали возможные лишние пробелы вначале и конце
+          //Убрали возможные лишние пробелы вначале и конце
         String expression = input.trim();
 
         //Знак первого операнда
@@ -78,7 +76,6 @@ class Main {
         if (RomanToArabic.checkArabikValid(operands) != TRUE) {
             return ("throws Exception //т.к. принимаютя на вход числа от 1 до 10 включительно, не более");
         }
-
 
         int resultInt;
         resultInt = RomanToArabic.mathOperArabik(operands, operator);
@@ -238,7 +235,6 @@ class Main {
         }
         return TRUE;
     }
-
     //Проверяем арабские или римские цифры используем. Если арабские - TRUE, римские - FALSE
     static boolean arabikExpr(String expression) throws Exception {
         String arabikTersms = "1234567890";
