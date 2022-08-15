@@ -5,7 +5,7 @@ import static java.lang.Boolean.TRUE;
 
 class Main {
 
-    public static void main(String inputs[]) {
+    public static void main(String args[]) {
         for (; ; ) {
             Scanner in = new Scanner(System.in);
             System.out.println("Введите математическое выражение:");
@@ -14,48 +14,41 @@ class Main {
         }
     }
 
-      static String calc(String input) {
+    public static String calc(String input) {
         String output = "";
         boolean arabik;
         char operator;
-          //Убрали возможные лишние пробелы вначале и конце
-        String expression = input.trim();
+        String expression = input.trim();  //Убрали возможные лишние пробелы вначале и конце
 
-        //Знак первого операнда
-        try {
+        try { //Знак первого операнда
             checkNeg(expression);
         } catch (Exception e) {
             return ("throws Exception //т.к. принимаютя на вход числа от 1 до 10 включительно, не более");
         }
 
-        //Уточнили первый операнд арабский или нет
-        try {
+
+        try { //Уточнили первый операнд арабский или нет
             arabik = arabikExpr(expression);
         } catch (Exception e) {
             return ("throws Exception //т.к. строка не является математической операцией");
         }
 
-        //Проверили является ли строка математической операцией
-        try {
+        try { //Проверили является ли строка математической операцией
             checkExpression(expression);
         } catch (Exception e) {
             return ("throws Exception //т.к. строка не является математической операцией");
         }
 
-        //Проверяем количество операторов
-        if (numOperators(input) == 0)
+        if (numOperators(input) == 0) //Проверяем количество операторов
             return ("throws Exception //т.к. строка не является математической операцией");
         else if (numOperators(input) > 1)
             return ("throws Exception //т.к. формат математической операции не удовлетворяет заданию - два операнда и один оператор (+, -, /, *)");
 
-        //Выясняем какой у нас оператор
-        operator = getOperator(expression);
+        operator = getOperator(expression); //Выясняем какой у нас оператор
 
-        //Получаем операнды
-        String operands[] = split(expression, operator);
+        String operands[] = split(expression, operator); //Получаем операнды
 
-        //Операнды одной системы счисления?
-        if (RomanToArabic.chekNS(operands) != TRUE) {
+        if (RomanToArabic.chekNS(operands) != TRUE) {  //Операнды одной системы счисления?
             return ("throws Exception //т.к. используются одновременно разные системы счисления");
         }
 
@@ -71,9 +64,7 @@ class Main {
                 return ("throws Exception //т.к. принимаютя на вход числа от 1 до 10 включительно, не более");
             }
         }
-
-        //Проверка попадения в ОДЗ
-        if (RomanToArabic.checkArabikValid(operands) != TRUE) {
+        if (RomanToArabic.checkArabikValid(operands) != TRUE) {   //Проверка попадения в ОДЗ
             return ("throws Exception //т.к. принимаютя на вход числа от 1 до 10 включительно, не более");
         }
 
@@ -82,10 +73,8 @@ class Main {
         output = Integer.toString(resultInt);
 
         if (arabik == FALSE) {
-            if (resultInt < 0)
-                return ("throws Exception //т.к. в римской системе нет отрицательных чисел");
-            else if (resultInt < 1)
-                return ("throws Exception //т.к. в римской системе нет числа 0");
+            if (resultInt < 0) return ("throws Exception //т.к. в римской системе нет отрицательных чисел");
+            else if (resultInt < 1) return ("throws Exception //т.к. в римской системе нет числа 0");
             output = ArabikToRoman.arabikToRoman(resultInt);
         }
 
@@ -93,16 +82,14 @@ class Main {
     }
 
     static void checkNeg(String expression) throws Exception {
-        if ((expression.charAt(0)) == '-')
-            throw new Exception("Допустимы только положительные числа");
+        if ((expression.charAt(0)) == '-') throw new Exception("Допустимы только положительные числа");
     }
 
     static String[] split(String expression, char operator) {
         String operands[] = new String[]{"", ""};
         int numOperand = 0;
         for (int i = 0; i < expression.length(); i++) {
-            if (expression.charAt(i) == ' ')
-                continue;
+            if (expression.charAt(i) == ' ') continue;
             if (expression.charAt(i) != operator) {
                 operands[numOperand] += expression.charAt(i);
             } else {
@@ -116,13 +103,12 @@ class Main {
         String operators = "+-/*";
         for (int i = 0; i < expression.length(); i++)
             for (int j = 0; j < 4; j++)
-                if (expression.charAt(i) == operators.charAt(j))
-                    return operators.charAt(j);
+                if (expression.charAt(i) == operators.charAt(j)) return operators.charAt(j);
         return '\0';
     }
 
-    //Проверяем является ли строка математическим выражением (или это просто набор символов)
-    static boolean checkExpression(String expression) throws Exception {
+
+    static boolean checkExpression(String expression) throws Exception { //Проверяем является ли строка математическим выражением (или это просто набор символов)
         expression.trim();
 
         boolean nextOnlyNum = TRUE, nextNumArabik = FALSE, nextNumRoman = FALSE;
@@ -135,8 +121,7 @@ class Main {
         String romanNumber = "";
         int numOperators = 0;
 
-        if (numbers.indexOf(expression.charAt(0)) == -1)
-            throw new Exception("Перый символ не число");
+        if (numbers.indexOf(expression.charAt(0)) == -1) throw new Exception("Перый символ не число");
 
         if (numbers.indexOf(expression.charAt(expression.length() - 1)) == -1)
             throw new Exception("Последний символ не число");
@@ -167,10 +152,7 @@ class Main {
                 nextNumArabik = FALSE;
                 nextNumRoman = FALSE;
                 numOperators++;
-            }
-
-            //Если встретилась римская цифра
-            else if (romanNumbers.indexOf(expression.charAt(i)) != -1) {
+            } else if (romanNumbers.indexOf(expression.charAt(i)) != -1) {  //Если встретилась римская цифра
                 if (nextNumArabik == TRUE) {
                     throw new Exception("Числа из разных цифр");
                 }
@@ -195,8 +177,7 @@ class Main {
         return TRUE;
     }
 
-    //Проверяем корректность записи римского числа (I - MMMCMXCIX)
-    static boolean romanNumberIsValid(String romanNumber) throws Exception {
+    static boolean romanNumberIsValid(String romanNumber) throws Exception { //Проверяем корректность записи римского числа (I - MMMCMXCIX)
         String romanSeq = "IVXLCDM";
         int repeat = 0;
         boolean neg = FALSE; //признак уменьшения
@@ -218,13 +199,11 @@ class Main {
                     throw new Exception("Неверная запись римского числа: запрещенное вычитание, например VL");
                 if ((array[i] - array[i - 1] == 1) && ((romanSeq.indexOf(romanNumber.charAt(i))) % 2 == 0))
                     throw new Exception("Неверная запись римского числа: запрещенное вычитание, например LC");
-                if (repeat > 0)
-                    throw new Exception("Неверная запись римского числа: двойное вычитание, например: IIX");
+                if (repeat > 0) throw new Exception("Неверная запись римского числа: двойное вычитание, например: IIX");
                 repeat = 0;
             } else if (array[i] < array[i - 1]) {
                 repeat = 0;
-                if (i < 2)
-                    continue;
+                if (i < 2) continue;
                 else if (array[i] == array[i - 2])
                     throw new Exception("Неверная запись римского числа: одной цифрой и вычитаем и прибавляем, например XCX");
             } else {
@@ -235,16 +214,13 @@ class Main {
         }
         return TRUE;
     }
-    //Проверяем арабские или римские цифры используем. Если арабские - TRUE, римские - FALSE
-    static boolean arabikExpr(String expression) throws Exception {
+
+    static boolean arabikExpr(String expression) throws Exception {  //Проверяем арабские или римские цифры используем. Если арабские - TRUE, римские - FALSE
         String arabikTersms = "1234567890";
         String romeTerms = "IVXLCDM";
-        if (arabikTersms.indexOf(expression.charAt(0)) != -1)
-            return TRUE;
-        else if (romeTerms.indexOf(expression.charAt(0)) != -1)
-            return FALSE;
-        else
-            throw new Exception("throws Exception //т.к. строка не является математической операцией");
+        if (arabikTersms.indexOf(expression.charAt(0)) != -1) return TRUE;
+        else if (romeTerms.indexOf(expression.charAt(0)) != -1) return FALSE;
+        else throw new Exception("throws Exception //т.к. строка не является математической операцией");
     }
 
     static int numOperators(String string) {
@@ -253,8 +229,7 @@ class Main {
 
         for (int i = 0; i < string.length(); i++)
             for (int j = 0; j < 4; j++)
-                if (string.charAt(i) == operators[j])
-                    numOperators++;
+                if (string.charAt(i) == operators[j]) numOperators++;
         return numOperators;
     }
 }
