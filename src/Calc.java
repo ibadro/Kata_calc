@@ -8,7 +8,7 @@ class Main {
     public static void main(String args[]) {
         for (; ; ) {
             Scanner in = new Scanner(System.in);
-            System.out.println("Введите математическое выражение:");
+            System.out.println(" Калькулятор умеет выполнять операции сложения, вычитания, умножения и деления с двумя числами: a + b, a - b, a * b, a / b. \n Введите математическое выражение:");
             String str = in.nextLine();
             System.out.println(calc(str));
         }
